@@ -30,7 +30,7 @@
 mb_internal_encoding('UTF-8');
 
 //via.me用に設定
-define('VIA_ME_APP_KEY','xu9axr8blxzmuyphd1uf4cjb');
+define('VIA_ME_APP_KEY','');
 
 //メイン関数
 function linkify($text,$entities=null,$get_headers=false,$remove_scheme=true) {
