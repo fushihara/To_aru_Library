@@ -1,7 +1,7 @@
 <?php
 
 //***********************************************
-//************* BgOAuth Version 1.1 *************
+//************* BgOAuth Version 1.2 *************
 //***********************************************
 //
 //　　　　　　　　　　　　　　作者: @To_aru_User
@@ -25,6 +25,9 @@
 //
 //
 //●更新履歴
+//
+// 1.2
+// ・NOTICEエラーを回避
 //
 // 1.1
 // ・PIN入力方式にも対応
@@ -71,7 +74,7 @@ class BgOAuth {
 			$this->error = 'oauth_verifierの取得に失敗しました';
 			return $this->error;
 		}
-		$verifier = (strlen($matches[1])) ? $matches[1] : $matches[2];
+		$verifier = (isset($matches[1])) ? $matches[1] : $matches[2];
 		
 		$q = $this->getParameters($this->oauth_token,$verifier,$this->oauth_token_secret,'oauth/access_token');
 		$response = $this->request('https://api.twitter.com/oauth/access_token?'.$q,'GET',array());
@@ -176,8 +179,8 @@ class BgOAuth {
 			'oauth_version' => '1.0'
 		);
 		
-		if (strlen($token)) $parameters['oauth_token'] = $token;
-		if (strlen($verifier)) $parameters['oauth_verifier'] = $verifier;
+		if (!empty($token)) $parameters['oauth_token'] = $token;
+		if (!empty($verifier)) $parameters['oauth_verifier'] = $verifier;
 		
 		$params = array_map(array(__CLASS__,'urlencodeRFC3986'),$parameters);
 		uksort($params,'strnatcmp');

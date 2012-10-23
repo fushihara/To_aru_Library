@@ -33,10 +33,12 @@ __※自己責任でお願いします__
 array __explodeTweet__ ( string _$text_ )
 
 ### 詳細
-ツイート本文を容易に分割することが出来ます。<br>
-140字毎にスクリーンネームやURL、英文節を壊さないように区切って分割します。<br>
+ツイートを容易に分割することが出来ます。<br>
+140字毎にURLや英文節を壊さないように区切って分割します。<br>
 全てのURLはt.coに短縮されるため、20文字として扱われます。<br>
-先頭にリプライヘッダがある場合、分割された全ての本文部分にそれを付加します。
+先頭にリプライヘッダがある場合、分割された先頭以外のツイートにもそれを付加します。<br>
+DMヘッダの場合はその文字数を除外してカウントします。<br>
+
 
 ## Array Slide<img src="http://ishisuke007.yh.land.to/push.png" style="vertical-align:bottom;" height="50">
 
@@ -96,7 +98,7 @@ __「postForm_1」「postForm_2」「postForm_3」…__という風にフォームに名前をつけて
 
 [BgOAuth]: https://github.com/Certainist/To_aru_Library/blob/master/BgOAuth.php
 [Explode Tweet]: https://github.com/Certainist/To_aru_Library/blob/master/explodeTweet.php
-[Version 1.0 系]: https://github.com/Certainist/To_aru_Library/blob/master/arraySlide-1.1.php
-[Version 2.0 系]: https://github.com/Certainist/To_aru_Library/blob/master/arraySlide-2.1.php
+[Version 1.0 系]: https://github.com/Certainist/To_aru_Library/blob/master/arraySlide-1.2.php
+[Version 2.0 系]: https://github.com/Certainist/To_aru_Library/blob/master/arraySlide-2.2.php
 [Linkify Text]: https://github.com/Certainist/To_aru_Library/blob/master/linkifyText.php
 [Virtual Form]: https://github.com/Certainist/To_aru_Library/blob/master/VirtualForm.php

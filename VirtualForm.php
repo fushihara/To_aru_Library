@@ -1,12 +1,16 @@
 <?php
 
-//■Virtual Form Library Ver3.0■//
+//■Virtual Form Library Ver3.1■//
 //
 //簡単にaタグでPOSTが出来るリンクを張れます。
 //多次元配列に対応しています。
 //JavaScriptが使えない場合はSubmitボタンで表示します。
 //「postForm_1」「postForm_2」「postForm_3」…という風にフォームに名前をつけていくので、
 //これらと重複するフォームを作らないように注意してください。
+//
+//
+//◆Ver3.1
+////・NOTICEエラーが出ないように改良
 //
 //◆Ver3.0
 ////・HTML特殊文字を置換せずに、エスケープされた表現で記述するように改良
@@ -68,32 +72,36 @@ document.write("</form>\n");
 
 */
 
-Class VirtualForm {
+class VirtualForm {
 	
-	function __construct() {
+	private $formCnt;
 	
+	public function __construct() {
 		$this->formCnt = 1;
-		
 	}
 	
-	//createLink(送信するデータ配列,キャプション,アクション[,メソッド[,ターゲット[,aタグのstyle属性の値]]])
-	function createLink($data,$caption,$action,$method="POST",$target="_self",$linkStyle="",$buttonStyle="") {
+	//createLink(送信するデータ配列,[キャプション,[アクション[,メソッド[,ターゲット[,aタグのstyle属性の値]]]]])
+	public function createLink($data,$caption='submit',$action='./',$method='POST',$target='_self',$linkStyle='',$buttonStyle='') {
 	
 		if (!is_array($data)) return null;
 		
-		$parsedArray = $this->arrayParse($data);
+		$parsed = $this->arrayParse($data);
 		
 		$str = "";
 		
 		$str .= "<script type=\"text/javascript\">\n";
 		$str .= "<!--\n";
 		
-		if ($linkStyle) $linkStyle = sprintf(" style=\\\"%s\\\"",$linkStyle);
+		if (!empty($linkStyle))
+		$linkStyle = sprintf(" style=\\\"%s\\\"",$linkStyle);
 		
-		$str .= sprintf("document.write(\"<a href=\\\"\\\" onClick=\\\"document.postForm_%s.submit();return false;\\\" target=\\\"%s\\\"%s>%s</a>\\n\");\n",$this->formCnt,$target,$linkstyle,$caption);
-		$str .= sprintf("document.write(\"<form name=\\\"postForm_%s\\\" method=\\\"POST\\\" action=\\\"%s\\\">\\n\");\n",$this->formCnt,$action);
+		$str .= sprintf("document.write(\"<a href=\\\"\\\" onClick=\\\"document.postForm_%s.submit();return false;\\\" target=\\\"%s\\\"%s>%s</a>\\n\");\n",
+				$this->formCnt,$target,$linkstyle,$caption);
+		$str .= sprintf("document.write(\"<form name=\\\"postForm_%s\\\" method=\\\"POST\\\" action=\\\"%s\\\">\\n\");\n",
+				$this->formCnt,$action);
 		
-		foreach ($parsedArray as $key => $value) $str .= sprintf("document.write(\"<input name=\\\"%s\\\" type=\\\"hidden\\\" value=\\\"%s\\\" />\\n\");\n",$key,$value);
+		foreach ($parsed as $key => $value)
+		$str .= sprintf("document.write(\"<input name=\\\"%s\\\" type=\\\"hidden\\\" value=\\\"%s\\\" />\\n\");\n",$key,$value);
 		
 		$str .= "document.write(\"</form>\\n\");\n";
 		$str .= "-->\n";
@@ -102,9 +110,10 @@ Class VirtualForm {
 		$str .= "<noscript>\n";
 		$str .= "<form method=\"{$method}\" action=\"{$action}\">\n";
 		
-		foreach ($parsedArray as $key => $value) $str .= sprintf("<input name=\"%s\" type=\"hidden\" value=\"%s\">\n",$key,$value);
+		foreach ($parsed as $key => $value)
+		$str .= sprintf("<input name=\"%s\" type=\"hidden\" value=\"%s\">\n",$key,$value);
 		
-		if ($buttonStyle) $buttonStyle = sprintf(" style=\"%s\"",$buttonStyle);
+		if (!empty($buttonStyle)) $buttonStyle = sprintf(" style=\"%s\"",$buttonStyle);
 		
 		$str .= sprintf("<input type=\"submit\" value=\"%s\"%s>\n",$caption,$buttonStyle);
 		$str .= "</form>\n";
@@ -118,19 +127,14 @@ Class VirtualForm {
 	
 	private function arrayParse($data) {
 		
-		$query = http_build_query($data,'','&',PHP_QUERY_RFC3986);
-		$array = explode("&",$query);
-		
-		$newArray = array();
-		
+		$query_string = http_build_query($data,'','&',PHP_QUERY_RFC3986);
+		$pairs = explode('&',$query);
+		$ret = array();
 		foreach ($array as $item) {
-		
-			$item = explode("=",$item);
-			$newArray[htmlspecialchars(rawurldecode($item[0]),ENT_QUOTES)] = htmlspecialchars(rawurldecode($item[1]),ENT_QUOTES);
-			
+			$items = explode('=',$item);
+			$ret[htmlspecialchars(rawurldecode($items[0]),ENT_QUOTES)] = htmlspecialchars(rawurldecode($items[1]),ENT_QUOTES);
 		}
-		
-		return $newArray;
+		return $ret;
 		
 	}
 
