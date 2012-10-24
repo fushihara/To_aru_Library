@@ -3,7 +3,7 @@
 ----------------
 
 # これ何ぞ
-個人的に需要があって作った__PHP__ライブラリ。主に__Twitter__向け。
+個人的に需要があって作った __PHP__ ライブラリ。主に __Twitter__ 向け。
 
 ----------------
 
@@ -93,7 +93,7 @@ echo _$obj_->__createLink__ ( array _$data_ [ , string _$caption = "submit"_ [ ,
 簡単にaタグでPOSTが出来るリンクを張れます。<br>
 多次元配列に対応しています。<br>
 JavaScriptが使えない場合はSubmitボタンで表示します。<br>
-__「postForm_0」「postForm_1」「postForm_2」…__という風にフォームに名前をつけていくので、<br>
+__「postForm_0」「postForm_1」「postForm_2」…__ という風にフォームに名前をつけていくので、<br>
 これらと重複するフォームを作らないように注意してください。
 
 [BgOAuth]: https://github.com/Certainist/To_aru_Library/blob/master/BgOAuth.php
