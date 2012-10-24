@@ -49,7 +49,7 @@ DMヘッダの場合はその文字数を除外してカウントします。<br>
 配列の要素を指定し、指定した分だけ要素間を移動させます。<br>
 オプションで配列の要素の指定方法を、デフォルトの__「キー」__から__番目__に変更することが出来ます。<br>
 キーは振り直されず、維持されます。<br>
-振り直したい場合は**array_values**関数を適用するといいでしょう。
+振り直したい場合は__array_values__関数を適用するといいでしょう。
 
 ### 関数の仕様
 
@@ -87,7 +87,7 @@ JavaScriptを使い、aタグ形式でPOST可能なリンクを生成する
 
 ### クラス・関数の仕様
 _$obj_ = new __VirtualForm__;<br>
-echo _$obj_->__createLink__ ( array _$data_ [ , string _$caption = "submit"_ [ , string _$action= "./"_ [ , string _$method = "POST"_ [ , string _$target = "\_self"_ [ , string _$linkStyle_ [ , string _$buttonStyle_ ]]]]]] );
+echo _$obj_->__createLink__ ( array _$data_ [ , string _$caption = "submit"_ [ , string _$action= "./"_ [ , string _$method = "POST"_ [ , string _$target = "\_self"_ [ , string _$linkStyle = ""_ [ , string _$buttonStyle = ""_ ]]]]]] );
 
 ### 詳細
 簡単にaタグでPOSTが出来るリンクを張れます。<br>
