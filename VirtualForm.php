@@ -5,7 +5,7 @@
 //簡単にaタグでPOSTが出来るリンクを張れます。
 //多次元配列に対応しています。
 //JavaScriptが使えない場合はSubmitボタンで表示します。
-//「postForm_1」「postForm_2」「postForm_3」…という風にフォームに名前をつけていくので、
+//「postForm_0」「postForm_1」「postForm_2」…という風にフォームに名前をつけていくので、
 //これらと重複するフォームを作らないように注意してください。
 //
 //
@@ -53,7 +53,7 @@ echo $vf->createLink($arr,"sample","./sample.php");
 <script type="text/javascript"> 
 <!--
 document.write("<a href=\"\" onClick=\"document.postForm_1.submit();return false;\" target=\"_self\">sample</a>\n");
-document.write("<form name=\"postForm_1\" method=\"POST\" action=\"./sample.php\">\n");
+document.write("<form name=\"postForm_0\" method=\"POST\" action=\"./sample.php\">\n");
 document.write("<input name=\"name\" type=\"hidden\" value=\"名前\" />\n");
 document.write("<input name=\"tokens[access_token]\" type=\"hidden\" value=\"xxxxxxxxxxxxx\" />\n");
 document.write("<input name=\"tokens[access_token_secret]\" type=\"hidden\" value=\"yyyyyyyyyyyyy\" />\n");
@@ -77,7 +77,7 @@ class VirtualForm {
 	private $formCnt;
 	
 	public function __construct() {
-		$this->formCnt = 1;
+		$this->formCnt = 0;
 	}
 	
 	//createLink(送信するデータ配列,[キャプション,[アクション[,メソッド[,ターゲット[,aタグのstyle属性の値]]]]])

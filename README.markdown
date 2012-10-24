@@ -46,9 +46,10 @@ DMヘッダの場合はその文字数を除外してカウントします。<br>
 配列の要素を指定し、指定した分だけ要素間を移動させる
 
 ### 詳細
-概要の通りです。配列操作に優れたPHPの関数ですがこの目的に該当する関数が見つからず、<br>
-それがどうしても必要な時があって尚且つ汎用性が高そうなものなので、ライブラリにしてみました。<br>
+配列の要素を指定し、指定した分だけ要素間を移動させます。<br>
 オプションで配列の要素の指定方法を、デフォルトの__「キー」__から__番目__に変更することが出来ます。<br>
+キーは振り直されず、維持されます。<br>
+振り直したい場合は**array_values**関数を適用するといいでしょう。
 
 ### 関数の仕様
 
@@ -70,12 +71,11 @@ DMヘッダの場合はその文字数を除外してカウントします。<br>
 テキストを解析し、リンクを張ったものを返す
 
 ### 関数の仕様
-string __linkify__ ( string _$text_ [, SimpleXMLElement _$entities = NULL_ [, bool _$get\_headers = FALSE_ , bool _$remove\_scheme = TRUE_ ]]] )
+string __linkify__ ( string _$text_ [, object _$entities = NULL_ [, bool _$get\_headers = FALSE_ , bool _$remove\_scheme = TRUE_ ]]] )
 
 ### 詳細
 Twitter上のあらゆるテキストに最適なリンクを張ります。<br>
 **status**のようにエンティティ情報を持つものの場合、第2引数で渡すと、処理がより速く正確になります。<br>
-SimpleXMLElementと書いてはいますが、stdClassでも問題ないと思います（多分）。<br>
 第3引数にTrueを指定すると、URLが多重短縮されていた場合最後まで解決を試みます。<br>
 第4引数にFalseを指定すると、URLの頭のスキームを省略しません。<br>
 __置換されるaタグのhref属性の値などは自分専用になっているので、必ず編集してからお使いください。__
@@ -87,13 +87,13 @@ JavaScriptを使い、aタグ形式でPOST可能なリンクを生成する
 
 ### クラス・関数の仕様
 _$obj_ = new __VirtualForm__;<br>
-echo _$obj_->__createLink__ ( array _$data_ , string _$caption_ , string _$action_ [ , string _$method = "POST"_ [ , string _$target = "\_self"_ [ , string _$linkStyle_ [ , string _$buttonStyle_ ]]]] );
+echo _$obj_->__createLink__ ( array _$data_ [ , string _$caption_ = "submit" [ , string _$action_ = "./" [ , string _$method = "POST"_ [ , string _$target = "\_self"_ [ , string _$linkStyle_ [ , string _$buttonStyle_ ]]]]]] );
 
 ### 詳細
 簡単にaタグでPOSTが出来るリンクを張れます。<br>
 多次元配列に対応しています。<br>
 JavaScriptが使えない場合はSubmitボタンで表示します。<br>
-__「postForm_1」「postForm_2」「postForm_3」…__という風にフォームに名前をつけていくので、<br>
+__「postForm_0」「postForm_1」「postForm_2」…__という風にフォームに名前をつけていくので、<br>
 これらと重複するフォームを作らないように注意してください。
 
 [BgOAuth]: https://github.com/Certainist/To_aru_Library/blob/master/BgOAuth.php
