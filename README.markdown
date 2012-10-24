@@ -87,7 +87,7 @@ JavaScriptを使い、aタグ形式でPOST可能なリンクを生成する
 
 ### クラス・関数の仕様
 _$obj_ = new __VirtualForm__;<br>
-echo _$obj_->__createLink__ ( array _$data_ [ , string _$caption_ = "submit" [ , string _$action_ = "./" [ , string _$method = "POST"_ [ , string _$target = "\_self"_ [ , string _$linkStyle_ [ , string _$buttonStyle_ ]]]]]] );
+echo _$obj_->__createLink__ ( array _$data_ [ , string _$caption = "submit"_ [ , string _$action= "./"_ [ , string _$method = "POST"_ [ , string _$target = "\_self"_ [ , string _$linkStyle_ [ , string _$buttonStyle_ ]]]]]] );
 
 ### 詳細
 簡単にaタグでPOSTが出来るリンクを張れます。<br>
