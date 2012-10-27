@@ -1,6 +1,6 @@
 <?php
 
-//■Explode Tweet Library Ver2.1■//
+//■Explode Tweet Library Ver2.1.1■//
 //
 //ツイートを容易に分割することが出来ます。
 //140字毎にURLや英文節を壊さないように区切って分割します。
@@ -9,6 +9,9 @@
 //DMヘッダの場合はその文字数を除外してカウントします。
 //
 //
+///Ver2.1.1
+///・defineを1回しか行わないように外側に出した
+///
 ///Ver2.1
 ///・正規表現を強化
 ///・NOTICEエラーが出ないように改良
@@ -29,6 +32,10 @@
 //
 
 mb_internal_encoding('UTF-8');
+
+//互換性維持のためdefineで定義
+define('URL_MAX',20); //t.coのURLの最大文字数
+define('HEAD_MAX',100); //ヘッダーの最大文字数
 
 //メイン関数
 function explodeTweet($str) {
@@ -63,10 +70,6 @@ class explodeTweetClass {
 	
 	//コンストラクタ
 	public function __construct($str) {
-		
-		//互換性維持のためdefineで定義
-		define('URL_MAX',20); //t.coのURLの最大文字数
-		define('HEAD_MAX',100); //ヘッダーの最大文字数
 		
 		$this->tweet_in = $str;
 		

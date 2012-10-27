@@ -1,12 +1,15 @@
 <?php
 
-//■Linkify Text Library Ver2.0■//
+//■Linkify Text Library Ver2.0.1■//
 //
 //Twitter上のあらゆるテキストを解析し、最適にリンクを張ったHTMLを出力するためのライブラリです。
 //エンティティ情報がある場合はそれを忠実に再現し、
 //無い場合はライブラリ側で解析します。
 //
 //置換するURL等が完全に自分用なので、ご自分の環境に合わせて編集し、ご利用ください。
+//
+//●Ver2.0.1
+////・NOTICEエラーの原因が残っていたのでさらに修正
 //
 //●Ver2.0
 ////・NOTICEエラーが出ないように修正
@@ -98,7 +101,7 @@ class linkifyTextClass {
 		}
 
 		//エンティティ情報が空の場合は改行変換のみで返す
-		if (empty($new_entities)) return nl2br($new_entities);
+		if (empty($new_entities)) return nl2br($text);
 		
 		//ソート処理
 		array_multisort($sort_arr,$new_entities);
@@ -210,7 +213,7 @@ class linkifyTextClass {
 		
 		//変数初期化
 		$img_thumb = null;
-		$imb_raw = null;
+		$img_raw = null;
 		$youtube = null;
 		
 		switch (true) {
@@ -399,7 +402,7 @@ class linkifyTextClass {
 	}
 	
 	//URLクッションページ用
-	function make_jump_url($url,$remove_scheme=true) {
+	public static function make_jump_url($url,$remove_scheme=true) {
 		
 		$enc_url = rawurlencode(base64_encode($url));
 		if ($remove_scheme) $url = preg_replace('@https?://@','',$url);
