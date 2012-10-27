@@ -483,9 +483,9 @@ class linkifyTextClass {
 				$str = $matches[0];
 				//種類を判定
 				switch (true) {
-					case isset($matches[1]) : $type = 'screen_name'; break;
-					case isset($matches[2]) : $type = 'hashtag'; break;
-					default                 : $type = 'word';
+					case (!empty($matches[1])) : $type = 'screen_name'; break;
+					case (!empty($matches[2])) : $type = 'hashtag'; break;
+					default                    : $type = 'word';
 				}
 				array_splice($array,$cnt,1,
 					array(
