@@ -111,6 +111,7 @@ __upostForm_0vupostForm_1vupostForm_2vc__ ‚Æ‚¢‚¤•—‚ÉƒtƒH[ƒ€‚É–¼‘O‚ğ‚Â‚¯‚
 
 [BgOAuth]: https://github.com/Certainist/To_aru_Library/blob/master/BgOAuth.php
 [Explode Tweet]: https://github.com/Certainist/To_aru_Library/blob/master/explodeTweet.php
+[Twitter Morse]: https://github.com/Certainist/To_aru_Library/blob/master/TwitterMorse.php
 [Version 1.0 Œn]: https://github.com/Certainist/To_aru_Library/blob/master/arraySlide-1.2.php
 [Version 2.0 Œn]: https://github.com/Certainist/To_aru_Library/blob/master/arraySlide-2.2.php
 [Linkify Text]: https://github.com/Certainist/To_aru_Library/blob/master/linkifyText.php
