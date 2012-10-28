@@ -12,8 +12,8 @@ class TwitterMorse {
 	
 	//デコード
 	public static function decode($str) {
-		if (preg_match('/^((<a .*?>)?@[A-Za-z0-9_]{1,15}(<\/a>)?[\s　]*)(.*)$/us',$str,$matches)) {
-			return $matches[1].self::decode_part($matches[4]);
+		if (preg_match('/^([\s.]*((<a .*?>)?@[A-Za-z0-9_]{1,15}(<\/a>)?[\s　]*)+)(.*)$/us',$str,$matches)) {
+			return $matches[1].self::decode_part($matches[5]);
 		}
 		$parts = preg_split("/([\s　]*([A-Z]T|QB)[\s　]*?(<a .*?>)?@[A-Za-z0-9_]{1,15}(<\/a>)?:[\s　]*)/u",$str,null,PREG_SPLIT_DELIM_CAPTURE);
 		$ret = '';
