@@ -45,7 +45,7 @@ class TwitterMorse {
 			$foot = '';
 		}
 		$str = mb_convert_kana($str,'KVC');
-		$str = preg_replace('/　/u',' ',$str);
+		$str = str_replace('　',' ',$str);
 		$replace_pairs = array(
 			'イ' => '・－ ',
 			'ィ' => '・－ ',
@@ -207,6 +207,7 @@ class TwitterMorse {
 		);
 		$ret = strtr($str,$replace_pairs);
 		$ret = mb_convert_kana($ret,'KVC');
+		$ret = preg_replace("/[\s　]/u",'',$ret);
 		return $str.'<span style="font-size:75%;">(Morse:'.$ret.')</span>';
 	}
 
