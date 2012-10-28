@@ -12,10 +12,10 @@ class TwitterMorse {
 	
 	//デコード
 	public static function decode($str) {
-		if (preg_match('/^([\s.]*((<a .*?>)?@[A-Za-z0-9_]{1,15}(<\/a>)?[\s　]*)+)(.*)$/us',$str,$matches)) {
-			return $matches[1].self::decode_part($matches[5]);
+		if (preg_match('/^([\s.]*(?:(?:<a .*?>)?@[A-Za-z0-9_]{1,15}(?:<\/a>)?[\s　]*)+)(.*)$/us',$str,$matches)) {
+			return $matches[1].self::decode_part($matches[2]);
 		}
-		$parts = preg_split("/([\s　]*([A-Z]T|QB)[\s　]*?(<a .*?>)?@[A-Za-z0-9_]{1,15}(<\/a>)?:[\s　]*)/u",$str,null,PREG_SPLIT_DELIM_CAPTURE);
+		$parts = preg_split("/([\s　]*(?:[A-Z]T|QB)[\s　]*?(?:<a .*?>)?@[A-Za-z0-9_]{1,15}(?:<\/a>)?:[\s　]*)/u",$str,null,PREG_SPLIT_DELIM_CAPTURE);
 		$ret = '';
 		$flag = false;
 		foreach ($parts as $part) {
@@ -36,7 +36,7 @@ class TwitterMorse {
 			$head = $matches[1];
 			$str = $matches[2];
 			$foot = '';
-		} elseif (preg_match("/(.*?)([\s　]*(QB|[A-Z]T)[\s　]*@[A-Za-z0-9_]{1,15}:.*)/us",$str,$matches)) {
+		} elseif (preg_match("/(.*?)([\s　]*(?:QB|[A-Z]T)[\s　]*@[A-Za-z0-9_]{1,15}:.*)/us",$str,$matches)) {
 			$head = '';
 			$str = $matches[1];
 			$foot = $matches[2];
