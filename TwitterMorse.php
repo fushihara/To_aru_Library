@@ -12,14 +12,19 @@ class TwitterMorse {
 	
 	//デコード
 	public static function decode($str) {
-		$parts = preg_split("/^(<a .*?>)?@[A-Za-z0-9_]{1,15}(<\/a>)?[\s　]*|[\s　]*([A-Z]T|QB)[\s　]*?(<a .*?>)?@[A-Za-z0-9_]{1,15}(<\/a>)?:[\s　]*/u",$str,null,PREG_SPLIT_NO_EMPTY|PREG_SPLIT_DELIM_CAPTURE);
+		if (preg_match('/^((<a .*?>)?@[A-Za-z0-9_]{1,15}(<\/a>)?[\s　]*)(.*)$/us',$str,$matches)) {
+			return $matches[1].self::decode_part($matches[4]);
+		}
+		$parts = preg_split("/[\s　]*([A-Z]T|QB)[\s　]*?(<a .*?>)?@[A-Za-z0-9_]{1,15}(<\/a>)?:[\s　]*/u",$str,null,PREG_SPLIT_DELIM_CAPTURE);
 		$ret = '';
+		$flag = false;
 		foreach ($parts as $part) {
-			if (preg_match("/^((<a .*?>)?(@[A-Za-z0-9_]{1,15}(<\/a>)?[\s　]*|[\s　]*([A-Z]T|QB)[\s　]*?(<a .*?>)?@[A-Za-z0-9_]{1,15})(<\/a>)?:[\s　]*)$/u",$part)) {
+			if ($flag) {
 				$ret .= $part;
 			} else {
 				$ret .= self::decode_part($part);
 			}
+			$flag = !$flag;
 		}
 		return $ret;
 	}
@@ -140,7 +145,7 @@ class TwitterMorse {
 	}
 	
 	private static function decode_part($str) {
-		if (preg_match("/[^\s　・－]/u",$str)) return $str;
+		if (empty($str) || preg_match("/[^\s　・－]/u",$str)) return $str;
 		$replace_pairs = array(
 			'・－・－・－' => '、',
 			'・－・－・・' => '」',
