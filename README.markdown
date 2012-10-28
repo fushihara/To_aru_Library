@@ -39,14 +39,14 @@ array __explodeTweet__ ( string _$text_ )
 先頭にリプライヘッダがある場合、分割された先頭以外のツイートにもそれを付加します。<br>
 DMヘッダの場合はその文字数を除外してカウントします。<br>
 
-## [TwitterMorse]<img src="http://ishisuke007.yh.land.to/push.png" style="vertical-align:bottom;" height="50">
+## [Twitter Morse]<img src="http://ishisuke007.yh.land.to/push.png" style="vertical-align:bottom;" height="50">
 
 ### 概要
 長いツイートを最大で140字毎に、適当な部分で分割して配列で返す
 
 ### 関数の仕様
-string __TwitterMorse::encode__ ( string _$str_ )
-string __TwitterMorse::decode__ ( string _$str_ )
+string __TwitterMorse::encode__ ( string _$str_ )<br>
+string __TwitterMorse::decode__ ( string _$str_ )<br>
 
 ### 詳細
 モールス信号エンコード/デコードを行います。<br>
