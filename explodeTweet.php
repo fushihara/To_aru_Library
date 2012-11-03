@@ -1,6 +1,6 @@
 <?php
 
-//■Explode Tweet Library Ver2.1.1■//
+//■Explode Tweet Library Ver2.1.2■//
 //
 //ツイートを容易に分割することが出来ます。
 //140字毎にURLや英文節を壊さないように区切って分割します。
@@ -9,6 +9,11 @@
 //DMヘッダの場合はその文字数を除外してカウントします。
 //
 //
+///Ver2.1.2
+///・定数宣言をconstに変えた（オブジェクト定数）
+///・NOTICEエラーが出ないように正規表現パターンを改良
+///
+///
 ///Ver2.1.1
 ///・defineを1回しか行わないように外側に出した
 ///
@@ -33,10 +38,6 @@
 
 mb_internal_encoding('UTF-8');
 
-//互換性維持のためdefineで定義
-define('URL_MAX',20); //t.coのURLの最大文字数
-define('HEAD_MAX',100); //ヘッダーの最大文字数
-
 //メイン関数
 function explodeTweet($str) {
 	
@@ -60,6 +61,10 @@ function explodeTweet($str) {
 
 //クラス
 class explodeTweetClass {
+	
+	//定数定義
+	const URL_MAX = 20;
+	const HEAD_MAX = 100;
 	
 	//変数宣言
 	private $tweet_in;
@@ -131,7 +136,7 @@ class explodeTweetClass {
 					break;
 					
 					//現文節の長さ
-					$tempLength = ($tempTexts[$cnt]['type']==='url') ? URL_MAX : mb_strlen($tempTexts[$cnt]['str']);
+					$tempLength = ($tempTexts[$cnt]['type']==='url') ? self::URL_MAX : mb_strlen($tempTexts[$cnt]['str']);
 					
 					if ($tweetLength + $tempLength <= 140) {
 					
@@ -248,7 +253,7 @@ class explodeTweetClass {
 		//全ての文節を結合、長さを測る
 		foreach ($array as $element) {
 			$str .= $element['str'];
-			$len += ($element['type']==='url') ? URL_MAX : mb_strlen($element['str']);
+			$len += ($element['type']==='url') ? self::URL_MAX : mb_strlen($element['str']);
 		}
 		//140字以内の場合
 		if ($len<=140) {
@@ -366,7 +371,7 @@ class explodeTweetClass {
 	private function splitHeader() {
 		
 		//ヘッダーが見つからなければヘッダーと本文を初期化してfalseを返す
-		if (!preg_match("/^([\s　]*\.?[\s　]*)((@[A-Za-z0-9_]{1,15}[\s　]?)+)(.+)*/us",$this->tweet_in,$first_matches)) {
+		if (!preg_match("/^([\s　]*\.?[\s　]*)((@[A-Za-z0-9_]{1,15}[\s　]?)+)(.*)/us",$this->tweet_in,$first_matches)) {
 			$this->headers[] = "";
 			$this->body = $this->tweet_in;
 			return false;
@@ -390,7 +395,7 @@ class explodeTweetClass {
 				$in_process = true;
 			}
 			$temp .= $headScreenNames[$cnt]." ";
-			if (mb_strlen($temp) > HEAD_MAX) {
+			if (mb_strlen($temp) > self::HEAD_MAX) {
 				$this->headers[] = $prev;
 				$temp = "";
 				$in_process = false;
@@ -433,7 +438,7 @@ class explodeTweetClass {
 		$count = count($texts);
 		$sum = 0;
 		for ($cnt=$currentCnt;$cnt<$count;$cnt++) {
-			$sum += ($texts[$cnt]['type']==='url') ? URL_MAX : mb_strlen($texts[$cnt]['str']);
+			$sum += ($texts[$cnt]['type']==='url') ? self::URL_MAX : mb_strlen($texts[$cnt]['str']);
 		}
 		
 		//140字以内に収まりきる場合は判定済みフラグをtrueに設定し、trueを返す
