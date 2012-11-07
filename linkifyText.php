@@ -1,12 +1,16 @@
 <?php
 
-//■Linkify Text Library Ver2.0.1■//
+//■Linkify Text Library Ver2.1■//
 //
 //Twitter上のあらゆるテキストを解析し、最適にリンクを張ったHTMLを出力するためのライブラリです。
 //エンティティ情報がある場合はそれを忠実に再現し、
 //無い場合はライブラリ側で解析します。
 //
 //置換するURL等が完全に自分用なので、ご自分の環境に合わせて編集し、ご利用ください。
+//
+//●Ver2.1
+////・プロフィールの仕様変更に対応
+//// 　（linkifyTextClass::linkifyDescription()は直接呼び出してください）
 //
 //●Ver2.0.1
 ////・NOTICEエラーの原因が残っていたのでさらに修正
@@ -205,6 +209,16 @@ class linkifyTextClass {
 		
 		//処理済みの文字列を返す
 		return $new_text;
+		
+	}
+	
+	//Descriptionを解析
+	public static function linkifyDescription($text,$entities,$get_headers=false,$remove_scheme=true) {
+		
+		$text = self::linkifyByEntities($text,$entities,$get_headers,$remove_scheme);
+		$pattern = "/(?<![\\w\\/\\?])(@([A-Za-z0-9_]{1,15}))|(?<![\\w\\/\\?])([#♯][ー゛゜々ヾヽぁ-ヶ一-龠ａ-ｚＡ-Ｚ０-９a-zA-Z0-9_]{1,139})/eu";
+		$replacement = '((strlen("$1"))?"<a href=\"person.php?guid=ON&person=$2\">$1</a>":"<a href=\"search.php?guid=ON&sq=".rawurlencode("$3")."\">$3</a>")';
+		return preg_replace($pattern,$replacement,$text);
 		
 	}
 	
