@@ -1,10 +1,12 @@
 <?php
 
-//■Twitter Morse Library Ver1.0■//
+//■Twitter Morse Library Ver1.1■//
 //
 //モールス信号エンコード/デコードを行います。
 //Twitterのリプライ・RTフォーマットなどを自動判別します。
 //
+//Ver1.1
+//空白だけのツイートをモールス扱いしないように改良
 
 mb_internal_encoding('UTF-8');
 
@@ -145,7 +147,7 @@ class TwitterMorse {
 	}
 	
 	private static function decode_part($str) {
-		if (empty($str) || preg_match("/[^\s　・－]/u",$str)) return $str;
+		if (empty($str) || preg_match("/[^\s　・－]|^[\s　]*$/u",$str)) return $str;
 		$replace_pairs = array(
 			'・－・－・－' => '、',
 			'・－・－・・' => '」',
