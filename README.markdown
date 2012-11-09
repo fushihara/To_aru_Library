@@ -35,7 +35,7 @@ _$res_ = _$f_->__login__ ( string _$username_, string _$password_ );<br>
 _$penders_ = _$f_->__getPenders__ ();<br>
 _$res_ = _$f_->__acceptPender__ ( string _$id_ );<br>
 _$res_ = _$f_->__denyPender__ ( string _$id_ );<br>
-$f_->__acceptAll__ ();<br>
+$f->__acceptAll__ ();<br>
 
 ### 詳細
 通常のTwitterのAPIエンドポイントでは実現不可能な機能なので、KeitaiWeb経由で行います。<br>
