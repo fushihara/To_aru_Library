@@ -24,6 +24,25 @@ OAuth”FØ‚ğƒoƒbƒNƒOƒ‰ƒEƒ“ƒh‚Ås‚¢‚Ü‚·B<br>
 ¸”s‚·‚é‚ÆAƒGƒ‰[Œ´ˆö‚ğ•\‚·•¶š—ñ‚ª•Ô‚³‚ê‚Ü‚·B<br>
 __¦©ŒÈÓ”C‚Å‚¨Šè‚¢‚µ‚Ü‚·__
 
+## [Follower Request]<img src="http://ishisuke007.yh.land.to/push.png" style="vertical-align:bottom;" height="50">
+
+### ŠT—v
+Œ®ƒAƒJƒEƒ“ƒg‚ÌƒtƒHƒƒ[ƒŠƒNƒGƒXƒg‚ğŠm”F/‹–‰Â/‹‘”Û‚·‚é
+
+### ƒNƒ‰ƒXEŠÖ”‚Ìd—l
+_$f_ = new __FollowerRequest__ ();<br>
+_$res_ = _$f_->__login__ ( string _$username_, string _$password_ );
+_$penders_ = _$f_->__getPenders__ ();
+_$res_ = _$f_->__acceptPender__ ( string _$id_ );
+_$res_ = _$f_->__denyPender__ ( string _$id_ );
+$f_->__acceptAll__ ();
+
+### Ú×
+’Êí‚ÌTwitter‚ÌAPIƒGƒ“ƒhƒ|ƒCƒ“ƒg‚Å‚ÍÀŒ»•s‰Â”\‚È‹@”\‚È‚Ì‚ÅAKeitaiWebŒo—R‚Ås‚¢‚Ü‚·B<br>
+_$id_ ‚ÍAscreen_name‚Å‚Í‚È‚­”š‚Ì‚İ‚ÌP‹v“I‚Èuser_id‚ğw‚µ‚Ü‚·B<br>
+Å‰‚É•K‚¸loginƒƒ\ƒbƒh‚ğÀs‚µ‚Ä‚­‚¾‚³‚¢B<br>
+__¦©ŒÈÓ”C‚Å‚¨Šè‚¢‚µ‚Ü‚·__
+
 ## [Explode Tweet]<img src="http://ishisuke007.yh.land.to/push.png" style="vertical-align:bottom;" height="50">
 
 ### ŠT—v
@@ -110,6 +129,7 @@ __upostForm_0vupostForm_1vupostForm_2vc__ ‚Æ‚¢‚¤•—‚ÉƒtƒH[ƒ€‚É–¼‘O‚ğ‚Â‚¯‚
 ‚±‚ê‚ç‚Æd•¡‚·‚éƒtƒH[ƒ€‚ğì‚ç‚È‚¢‚æ‚¤‚É’ˆÓ‚µ‚Ä‚­‚¾‚³‚¢B
 
 [BgOAuth]: https://github.com/Certainist/To_aru_Library/blob/master/BgOAuth.php
+[Follower Request]: https://github.com/Certainist/To_aru_Library/blob/master/FollowerRequest.php
 [Explode Tweet]: https://github.com/Certainist/To_aru_Library/blob/master/explodeTweet.php
 [Twitter Morse]: https://github.com/Certainist/To_aru_Library/blob/master/TwitterMorse.php
 [Version 1.0 Œn]: https://github.com/Certainist/To_aru_Library/blob/master/arraySlide-1.2.php
