@@ -31,11 +31,11 @@ __※自己責任でお願いします__
 
 ### クラス・関数の仕様
 _$f_ = new __FollowerRequest__ ();<br>
-_$res_ = _$f_->__login__ ( string _$username_, string _$password_ );
-_$penders_ = _$f_->__getPenders__ ();
-_$res_ = _$f_->__acceptPender__ ( string _$id_ );
-_$res_ = _$f_->__denyPender__ ( string _$id_ );
-$f_->__acceptAll__ ();
+_$res_ = _$f_->__login__ ( string _$username_, string _$password_ );<br>
+_$penders_ = _$f_->__getPenders__ ();<br>
+_$res_ = _$f_->__acceptPender__ ( string _$id_ );<br>
+_$res_ = _$f_->__denyPender__ ( string _$id_ );<br>
+$f_->__acceptAll__ ();<br>
 
 ### 詳細
 通常のTwitterのAPIエンドポイントでは実現不可能な機能なので、KeitaiWeb経由で行います。<br>
@@ -97,7 +97,7 @@ Twitterのリプライ・RTフォーマットなどを自動判別します。<br>
  
  配列を参照渡しし、処理の結果を論理値で返します。
 
-## [Linkify Text]<img src="http://ishisuke007.yh.land.to/push.png" style="vertical-align:bottom;" height="50">
+## [Linkify Text]
 
 ### 概要
 テキストを解析し、リンクを張ったものを返す
