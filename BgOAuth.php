@@ -1,8 +1,8 @@
 <?php
 
-//***********************************************
-//************* BgOAuth Version 1.2 *************
-//***********************************************
+//*************************************************
+//************* BgOAuth Version 1.2.1 *************
+//*************************************++**********
 //
 //　　　　　　　　　　　　　　作者: @To_aru_User
 //　　　　　　　　　　　　　　協力: @re4k
@@ -25,6 +25,9 @@
 //
 //
 //●更新履歴
+//
+// 1.2.1
+// ・authenticityTokenにスラッシュが含まれる場合にエラーが発生する可能性があったので修正
 //
 // 1.2
 // ・NOTICEエラーを回避
@@ -69,7 +72,7 @@ class BgOAuth {
 			return $this->error;
 		}
 		
-		$pattern = '@oauth_token=\w+?&oauth_verifier=(\w+?)"|<code>(\d+?)</code>@';
+		$pattern = '@oauth_verifier=(.+?)"|<code>(.+?)</code>@';
 		if (!preg_match($pattern,$response,$matches)) {
 			$this->error = 'oauth_verifierの取得に失敗しました';
 			return $this->error;
@@ -111,7 +114,7 @@ class BgOAuth {
 			return false;
 		}
 		
-		$pattern = '@<input name="authenticity_token" type="hidden" value="(\w+)" />@';
+		$pattern = '@<input name="authenticity_token" type="hidden" value="(.+?)" />@';
 		if (!preg_match($pattern,$response,$matches)) {
 			$this->error = 'authenticity_tokenの取得に失敗しました';
 			return false;
