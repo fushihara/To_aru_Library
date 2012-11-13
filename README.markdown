@@ -31,7 +31,7 @@ OAuthのPOSTリクエストをレスポンスを回収せずに高速実行する
 
 ### クラス・関数の仕様
 _$to_ = new __BombOAuth__ ( string _$consumer\_key_, string _$consumer\_secret_, string _$access\_token_, string _$access\_token\_secret_ );<br>
-_$to_->__sockRequest__ ( string _$url_, array _$opt_ );
+_$to_->__sockRequest__ ( string _$url_, array _$opt=array()_ );
 
 ### 詳細
 BombOAuthコンストラクタでインスタンスを生成し、<br>
