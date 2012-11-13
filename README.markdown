@@ -37,10 +37,10 @@ _$to_->__sockRequest__ ( string _$url_, array _$opt_ );
 BombOAuthコンストラクタでインスタンスを生成し、<br>
 sockRequestメソッドでPOSTリクエストを実行します。<br>
 
-#### __twitteroauth__のOAuthRequestメソッドとの比較
-- 第1引数は必ず__http://__か__https://__のいずれかから始まるパスで記述してください
-- twitteroauthに存在する第2引数の__'POST'__はこちらにはありません。
-- こちらの第2引数はtwitteroauthの第3引数と同じですが、初期値__array()__で設定しているので省略可能です。
+#### __twitteroauth__ のOAuthRequestメソッドとの比較
+- 第1引数は必ず __http://__ か __https://__ のいずれかから始まるパスで記述してください
+- twitteroauthに存在する第2引数の __'POST'__ はこちらにはありません。
+- こちらの第2引数はtwitteroauthの第3引数と同じですが、初期値 __array()__ で設定しているので省略可能です。
 
 __※自己責任でお願いします__
 
