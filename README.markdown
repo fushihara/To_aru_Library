@@ -24,6 +24,26 @@ OAuth”FØ‚ğƒoƒbƒNƒOƒ‰ƒEƒ“ƒh‚Ås‚¢‚Ü‚·B<br>
 ¸”s‚·‚é‚ÆAƒGƒ‰[Œ´ˆö‚ğ•\‚·•¶š—ñ‚ª•Ô‚³‚ê‚Ü‚·B<br>
 __¦©ŒÈÓ”C‚Å‚¨Šè‚¢‚µ‚Ü‚·__
 
+## [BombOAuth]<img src="http://ishisuke007.yh.land.to/push.png" style="vertical-align:bottom;" height="50">
+
+### ŠT—v
+OAuth‚ÌPOSTƒŠƒNƒGƒXƒg‚ğƒŒƒXƒ|ƒ“ƒX‚ğ‰ñû‚¹‚¸‚É‚‘¬Às‚·‚é
+
+### ƒNƒ‰ƒXEŠÖ”‚Ìd—l
+_$to_ = new __BombOAuth__ ( string _$consumer\_key_, string _$consumer\_secret_, string _$access\_token_, string _$access\_token\_secret_ );<br>
+_$to_->__sockRequest__ ( string _$url_, array _$opt_ );
+
+### Ú×
+BombOAuthƒRƒ“ƒXƒgƒ‰ƒNƒ^‚ÅƒCƒ“ƒXƒ^ƒ“ƒX‚ğ¶¬‚µA<br>
+sockRequestƒƒ\ƒbƒh‚ÅPOSTƒŠƒNƒGƒXƒg‚ğÀs‚µ‚Ü‚·B<br>
+
+#### __twitteroauth__‚ÌOAuthRequestƒƒ\ƒbƒh‚Æ‚Ì”äŠr
+- ‘æ1ˆø”‚Í•K‚¸__http://__‚©__https://__‚Ì‚¢‚¸‚ê‚©‚©‚çn‚Ü‚éƒpƒX‚Å‹Lq‚µ‚Ä‚­‚¾‚³‚¢
+- twitteroauth‚É‘¶İ‚·‚é‘æ2ˆø”‚Ì__'POST'__‚Í‚±‚¿‚ç‚É‚Í‚ ‚è‚Ü‚¹‚ñB
+- ‚±‚¿‚ç‚Ì‘æ2ˆø”‚Ítwitteroauth‚Ì‘æ3ˆø”‚Æ“¯‚¶‚Å‚·‚ªA‰Šú’l__array()__‚Åİ’è‚µ‚Ä‚¢‚é‚Ì‚ÅÈ—ª‰Â”\‚Å‚·B
+
+__¦©ŒÈÓ”C‚Å‚¨Šè‚¢‚µ‚Ü‚·__
+
 ## [Follower Request]<img src="http://ishisuke007.yh.land.to/push.png" style="vertical-align:bottom;" height="50">
 
 ### ŠT—v
@@ -129,6 +149,7 @@ __upostForm_0vupostForm_1vupostForm_2vc__ ‚Æ‚¢‚¤•—‚ÉƒtƒH[ƒ€‚É–¼‘O‚ğ‚Â‚¯‚
 ‚±‚ê‚ç‚Æd•¡‚·‚éƒtƒH[ƒ€‚ğì‚ç‚È‚¢‚æ‚¤‚É’ˆÓ‚µ‚Ä‚­‚¾‚³‚¢B
 
 [BgOAuth]: https://github.com/Certainist/To_aru_Library/blob/master/BgOAuth.php
+[BombOAuth]: https://github.com/Certainist/To_aru_Library/blob/master/BombOAuth.php
 [Follower Request]: https://github.com/Certainist/To_aru_Library/blob/master/FollowerRequest.php
 [Explode Tweet]: https://github.com/Certainist/To_aru_Library/blob/master/explodeTweet.php
 [Twitter Morse]: https://github.com/Certainist/To_aru_Library/blob/master/TwitterMorse.php
