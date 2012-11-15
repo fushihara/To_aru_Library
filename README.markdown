@@ -22,6 +22,23 @@ _$tokens_ = _$app_->__getTokens__ ( string _$username_, string _$password_ );
 OAuth”FØ‚ğƒoƒbƒNƒOƒ‰ƒEƒ“ƒh‚Ås‚¢‚Ü‚·B<br>
 ¬Œ÷‚·‚é‚ÆA _$tokens['access\_token']_ &middot; *$tokens['access\_token\_secret']* ‚ÅƒAƒNƒZƒX‚Å‚«‚Ü‚·B<br>
 ¸”s‚·‚é‚ÆAƒGƒ‰[Œ´ˆö‚ğ•\‚·•¶š—ñ‚ª•Ô‚³‚ê‚Ü‚·B<br>
+
+__¦©ŒÈÓ”C‚Å‚¨Šè‚¢‚µ‚Ü‚·__
+
+## BgOAuthMulti<img src="http://ishisuke007.yh.land.to/push.png" style="vertical-align:bottom;" height="50">
+
+### ŠT—v
+BgOAuth‚Å•¡”ƒƒOƒCƒ“‚ğƒ}ƒ‹ƒ`ƒXƒŒƒbƒh‚Ås‚¤
+
+### ƒNƒ‰ƒXEŠÖ”‚Ìd—l
+_$m_ = new __BgOAuthMulti__ ();<br>
+_$m_ = _$m_->__addLogin__ ( string _$consumer\_key_, string _$consumer\_secret_, string _$username_, string _$password_ );<br>
+_$res_ = _$m_->__exec__ ();
+
+### Ú×
+BgOAuth‚Å•¡”ƒƒOƒCƒ“‚ğƒ}ƒ‹ƒ`ƒXƒŒƒbƒh‚Ås‚¢‚Ü‚·B<br>
+[BgOAuthMulti.php]‚Æ[BgOAuthMultiExec.php]‚Æ[BgOAuth.php]‚ğ“¯ˆêŠK‘w‚Éİ’u‚µ‚Ä‚­‚¾‚³‚¢B<br>
+
 __¦©ŒÈÓ”C‚Å‚¨Šè‚¢‚µ‚Ü‚·__
 
 ## [BombOAuth]<img src="http://ishisuke007.yh.land.to/push.png" style="vertical-align:bottom;" height="50">
@@ -149,6 +166,9 @@ __upostForm_0vupostForm_1vupostForm_2vc__ ‚Æ‚¢‚¤•—‚ÉƒtƒH[ƒ€‚É–¼‘O‚ğ‚Â‚¯‚
 ‚±‚ê‚ç‚Æd•¡‚·‚éƒtƒH[ƒ€‚ğì‚ç‚È‚¢‚æ‚¤‚É’ˆÓ‚µ‚Ä‚­‚¾‚³‚¢B
 
 [BgOAuth]: https://github.com/Certainist/To_aru_Library/blob/master/BgOAuth.php
+[BgOAuth.php]: https://github.com/Certainist/To_aru_Library/blob/master/BgOAuth.php
+[BgOAuthMulti.php]: https://github.com/Certainist/To_aru_Library/blob/master/BgOAuthMulti.php
+[BgOAuthMultiExec.php]: https://github.com/Certainist/To_aru_Library/blob/master/BgOAuthMultiExec.php
 [BombOAuth]: https://github.com/Certainist/To_aru_Library/blob/master/BombOAuth.php
 [Follower Request]: https://github.com/Certainist/To_aru_Library/blob/master/FollowerRequest.php
 [Explode Tweet]: https://github.com/Certainist/To_aru_Library/blob/master/explodeTweet.php
