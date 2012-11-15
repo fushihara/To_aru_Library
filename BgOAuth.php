@@ -1,8 +1,8 @@
 <?php
 
 //*************************************************
-//************* BgOAuth Version 1.2.1 *************
-//*************************************++**********
+//************** BgOAuth Version 2.0 **************
+//*************************************************
 //
 //　　　　　　　　　　　　　　作者: @To_aru_User
 //　　　　　　　　　　　　　　協力: @re4k
@@ -26,6 +26,10 @@
 //
 //●更新履歴
 //
+// 2.0
+// ・内部的な構造を美しくした
+//   Content-Lengthをヘッダに含むようにした
+//
 // 1.2.1
 // ・authenticityTokenにスラッシュが含まれる場合にエラーが発生する可能性があったので修正
 //
@@ -43,137 +47,118 @@
 class BgOAuth {
 	
 	private $cookie;
-	private $user_agent;
 	private $consumer_key;
 	private $consumer_secret;
 	private $oauth_token;
 	private $oauth_token_secret;
+	private $oauth_verifier;
 	private $error;
 	
+	private $url_authorize     = 'https://api.twitter.com/oauth/authorize';
+	private $url_request_token = 'https://api.twitter.com/oauth/request_token';
+	private $url_access_token  = 'https://api.twitter.com/oauth/access_token';
+	
 	public function __construct($consumer_key,$consumer_secret) {
-			
-		$this->user_agent = "Mozilla/5.0 (X11; Linux x86_64; rv:18.0) Gecko/18.0 Firefox/18.0 FirePHP/0.7.1";
 		$this->cookie = array();
 		$this->consumer_key = $consumer_key;
 		$this->consumer_secret = $consumer_secret;
-		
 	}
 	
 	public function getTokens($username,$password) {
-		
 		$data = $this->prepare();
 		if ($data===false) return $this->error;
 		$data['session[username_or_email]'] = $username;
 		$data['session[password]'] = $password;
-		
-		$response = $this->request('https://api.twitter.com/oauth/authorize','POST',$data);
+		$response = $this->request($this->url_authorize,'POST',$data);
 		if ($response===false) {
 			$this->error = 'ログイン時、サーバーから応答がありませんでした';
 			return $this->error;
 		}
-		
 		$pattern = '@oauth_verifier=(.+?)"|<code>(.+?)</code>@';
 		if (!preg_match($pattern,$response,$matches)) {
 			$this->error = 'oauth_verifierの取得に失敗しました';
 			return $this->error;
 		}
-		$verifier = (isset($matches[1])) ? $matches[1] : $matches[2];
-		
-		$q = $this->getParameters($this->oauth_token,$verifier,$this->oauth_token_secret,'oauth/access_token');
-		$response = $this->request('https://api.twitter.com/oauth/access_token?'.$q,'GET',array());
+		$this->oauth_verifier = (!empty($matches[1])) ? $matches[1] : $matches[2];
+		$q = $this->getQuery($this->url_access_token);
+		$response = $this->request($this->url_access_token.'?'.$q);
 		if ($response===false) {
-			$this->error = 'access_token生成時、サーバーから応答がありませんでした';
+			$this->error = 'access_token取得時、サーバーから応答がありませんでした';
 			return $this->error;
 		}
-		
 		parse_str($response,$oauth_tokens);
 		return array(
 			'access_token' => $oauth_tokens['oauth_token'],
 			'access_token_secret' => $oauth_tokens['oauth_token_secret']
 		);
-		
 	}
 	
 	private function prepare() {
-		
-		$q = $this->getParameters();
-		$response = $this->request('https://api.twitter.com/oauth/request_token?'.$q,'GET',array());
+		$q = $this->getQuery($this->url_request_token);
+		$response = $this->request($this->url_request_token.'?'.$q);
 		if ($response===false) {
-			$this->error = 'リクエストトークン取得時、サーバーから応答がありませんでした';
+			$this->error = 'request_token取得時、サーバーから応答がありませんでした';
 			return false;
 		}
-		
 		parse_str($response,$request_tokens);
 		$this->oauth_token = $request_tokens['oauth_token'];
 		$this->oauth_token_secret = $request_tokens['oauth_token_secret'];
-		
 		$q = 'force_login=true&oauth_token='.$request_tokens['oauth_token'];
-		$response = $this->request('https://api.twitter.com/oauth/authorize?'.$q,'GET',array());
+		$response = $this->request($this->url_authorize.'?'.$q);
 		if ($response===false) {
 			$this->error = 'ログインページへの遷移時、サーバーから応答がありませんでした';
 			return false;
 		}
-		
 		$pattern = '@<input name="authenticity_token" type="hidden" value="(.+?)" />@';
 		if (!preg_match($pattern,$response,$matches)) {
 			$this->error = 'authenticity_tokenの取得に失敗しました';
 			return false;
 		}
-		
 		return array(
 			'authenticity_token' => $matches[1],
 			'oauth_token' => $this->oauth_token,
 			'force_login' => '1'
 		);
-		
 	}
 	
-	private function request($uri,$type,$data) {
-		
-		$content = '';
-		$_c = array();
-		foreach ($this->cookie as $k => $v) $_c[] = $k.'='.$v;
-		$context = array(
-			'http' => array(
-				'header' => implode("\r\n",array(
-					'Cookie: '.implode('; ',$_c),
-					'User-Agent: '.$this->user_agent
-				))
-			)
-		);
-			
-		$content = http_build_query($data,'','&');
-		$context['http']['method'] = $type;
-		if ($type=='POST') {
-			$context['http']['header'] = implode("\r\n",array(
-				$context['http']['header'],
-				'Content-Type: application/x-www-form-urlencoded'
-			));
+	private function request($url,$method='GET',$data=array()) {
+		$method = strtoupper($method);
+		$toPairs = create_function('$a','$p=array();foreach($a as $k=>$v)$p[]=$k."=".$v;return $p;');
+		$toLines = create_function('$a','return implode("\r\n",$a);');
+		$http = array();
+		$temp = array();
+		$temp[] = 'Cookie: '.implode('; ',$toPairs($this->cookie));
+		if ($method==='POST') {
+			$http['content'] = http_build_query($data,'','&');
+			$temp[] = 'Content-Type: application/x-www-form-urlencoded';
+			$temp[] = 'Content-Length: '.strlen($http['content']);
 		}
-		$context['http']['content'] = $content;
-			
-		$response = @file_get_contents($uri,false,stream_context_create($context));
+		$http['user_agent'] = 'Mozilla/5.0 (X11; Linux x86_64; rv:18.0) Gecko/18.0 Firefox/18.0 FirePHP/0.7.1';
+		$http['header'] = $toLines($temp);
+		$http['method'] = $method;
+		$response = @file_get_contents($url,false,stream_context_create(array('http'=>$http)));
 		if ($response===false) return false;
-		
-		foreach ($http_response_header as $r) {
-			if (strpos($r,'Set-Cookie')===false) continue;
-			$temp = explode(': ',$r);
-			$temp = $temp[1];
-			$temp = explode(';',$temp);
-			$temp = $temp[0];
-			list($k, $v) = explode('=',$temp);
-			$this->cookie[$k] = $v;
+		foreach ($http_response_header as $line) {
+			if (strpos($line,'Set-Cookie')!==0) continue;
+			$temp = explode(':',$line,2);
+			$all = $temp[1];
+			$parts = explode(';',$all);
+			foreach ($parts as $part) {
+				$part = trim($part);
+				if (strpos($part,'=')<1 || substr_count($part,'=')!=1) continue;
+				list($key,$value) = explode('=',$part,2);
+				if (in_array($key,array('expires','path','domain','secure'))) continue;
+				$this->cookie[$key] = $value;
+			}
 		}
-		
 		return $response;
-		
 	}
 	
-	private function getParameters($token='',$verifier='',$secret='',$call='oauth/request_token') {
-		
-		$url = 'https://api.twitter.com/'.$call;
-		$method = 'GET';
-		
+	private function getQuery($url,$method='GET',$opt=array()) {
+		$method = strtoupper($method);
+		$enc = create_function('$s','return str_replace("%7E","~",rawurlencode($s));');
+		$nsort = create_function('$a','uksort($a,"strnatcmp");return $a;');
+		$toPairs = create_function('$a','$p=array();foreach($a as $k=>$v)$p[]=$k."=".$v;return $p;');
 		$parameters = array(
 			'oauth_consumer_key' => $this->consumer_key,
 			'oauth_signature_method' => 'HMAC-SHA1',
@@ -181,40 +166,13 @@ class BgOAuth {
 			'oauth_nonce' => md5(microtime().mt_rand()),
 			'oauth_version' => '1.0'
 		);
-		
-		if (!empty($token)) $parameters['oauth_token'] = $token;
-		if (!empty($verifier)) $parameters['oauth_verifier'] = $verifier;
-		
-		$params = array_map(array(__CLASS__,'urlencodeRFC3986'),$parameters);
-		uksort($params,'strnatcmp');
-		
-		$pairs = array();
-		foreach ($params as $key => $value) {
-			$pairs []= $key.'='.$value;
-		}
-		
-		$param = implode('&',$pairs);
-		$parts = array($method,$url,$param);
-		$parts = array_map(array(__CLASS__,'urlencodeRFC3986'),$parts);
-		$body = implode('&',$parts);
-		$key_parts = array($this->consumer_secret,$secret);	
-		$key_parts = array_map(array(__CLASS__,'urlencodeRFC3986'),$key_parts);
-		$key = implode('&',$key_parts);
+		if (!empty($this->oauth_token)) $opt['oauth_token'] = $this->oauth_token;
+		if (!empty($this->oauth_verifier)) $opt['oauth_verifier'] = $this->oauth_verifier;
+		$parameters += $opt;
+		$body = implode('&',array_map($enc,array($method,$url,implode('&',$toPairs($nsort(array_map($enc,$parameters)))))));
+		$key = implode('&',array_map($enc,array($this->consumer_secret,empty($this->oauth_token_secret)?'':$this->oauth_token_secret)));
 		$parameters['oauth_signature'] = base64_encode(hash_hmac('sha1',$body,$key,true));
-		$params = array_map(array(__CLASS__,'urlencodeRFC3986'),$parameters);
-		
-		$pairs = array();
-		foreach ($params as $key => $value) {
-			$pairs []= $key.'='.$value;
-		}
-		
-		$q = implode('&',$pairs);
-		return $q;
-	
-	}
-	
-	private function urlencodeRFC3986($input) {
-		return str_replace('+',' ',str_replace('%7E','~',rawurlencode($input)));
+		return implode('&',$toPairs(array_map($enc,$parameters)));
 	}
 	
 }
