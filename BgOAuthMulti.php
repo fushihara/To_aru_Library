@@ -63,7 +63,6 @@ class BgOAuthMulti {
 	
 	public function __construct() {
 		$this->BgOAuthObjects = array();
-		$this->chs = array();
 		$this->path = self::getPath().$this->BgOAuthMultiExecPath;
 	}
 	
@@ -80,6 +79,7 @@ class BgOAuthMulti {
 		if (empty($this->BgOAuthObjects))
 			return array();
 		$count = count($this->BgOAuthObjects);
+		$chs = array();
 		for ($i=0;$i<$count;$i++) {
 			$query = http_build_query(array('BgOAuthObject'=>$this->BgOAuthObjects[$i]),'','&');
 			$chs[$i] = curl_init();
