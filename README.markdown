@@ -9,6 +9,29 @@
 
 # ライブラリ一覧
 
+## [SimpleOAuth]<img src="http://ishisuke007.yh.land.to/push.png" style="vertical-align:bottom;" height="50">
+
+### 概要
+爆撃や画像アップロードにも対応した高機能且つシンプルなライブラリ
+
+### クラス・関数の仕様
+_$to_ = new __SimpleOAuth__ ( string _$consumer\_key_, string _$consumer\_secret_ [, string _$oauth\_token=''_, string _$oauth\_token\_secret=''_ [, string _$oauth\_verifier=''_ ]] );<br>
+_$res_->__OAuthRequest__ ( string _$url_ [, string _$method='GET'_ [, _$opt=array()_ [, bool _$waitResponse=FALSE_ ]]]);
+
+### 詳細
+使いかたはtwitteroauthと似ていますが、こちらは<br>
+- 通常のリクエスト<br>
+- 爆撃リクエスト(レスポンスを待機しない)<br>
+- 画像アップロードを伴うリクエスト<br>
+全てに対応しております。<br>
+更に、cURLがインストールされていない環境でも動作します。<br>
+OAuthRequestImageメソッドのパラメータのうち、<br>
+ファイルパスを表すもののキーの頭に<br>
+@」を付けてください。(例：@media[] @image)<br>
+<br>
+### 備考
+BombOAuthで出来ることはこちらで実現可能なので、特に理由が無ければこちらをお使いください。
+
 ## [BgOAuth]<img src="http://ishisuke007.yh.land.to/push.png" style="vertical-align:bottom;" height="50">
 
 ### 概要
@@ -38,26 +61,6 @@ _$res_ = _$m_->__exec__ ();
 ### 詳細
 BgOAuthで複数ログインをマルチスレッドで行います。<br>
 [BgOAuthMulti.php]と[BgOAuthMultiExec.php]と[BgOAuth.php]を同一階層に設置してください。<br>
-
-__※自己責任でお願いします__
-
-## [BombOAuth]<img src="http://ishisuke007.yh.land.to/push.png" style="vertical-align:bottom;" height="50">
-
-### 概要
-OAuthのPOSTリクエストをレスポンスを回収せずに高速実行する
-
-### クラス・関数の仕様
-_$to_ = new __BombOAuth__ ( string _$consumer\_key_, string _$consumer\_secret_, string _$access\_token_, string _$access\_token\_secret_ );<br>
-_$to_->__sockRequest__ ( string _$url_, array _$opt=array()_ );
-
-### 詳細
-BombOAuthコンストラクタでインスタンスを生成し、<br>
-sockRequestメソッドでPOSTリクエストを実行します。<br>
-
-#### __twitteroauth__ のOAuthRequestメソッドとの比較
-- 第1引数は必ず __http://__ か __https://__ のいずれかから始まるパスで記述してください
-- twitteroauthに存在する第2引数の __'POST'__ はこちらにはありません。
-- こちらの第2引数はtwitteroauthの第3引数と同じですが、初期値 __array()__ で設定しているので省略可能です。
 
 __※自己責任でお願いします__
 
@@ -165,11 +168,11 @@ JavaScriptが使えない場合はSubmitボタンで表示します。<br>
 __「postForm_0」「postForm_1」「postForm_2」…__ という風にフォームに名前をつけていくので、<br>
 これらと重複するフォームを作らないように注意してください。
 
+[SimpleOAuth]: https://github.com/Certainist/To_aru_Library/blob/master/SimpleOAuth.php
 [BgOAuth]: https://github.com/Certainist/To_aru_Library/blob/master/BgOAuth.php
 [BgOAuth.php]: https://github.com/Certainist/To_aru_Library/blob/master/BgOAuth.php
 [BgOAuthMulti.php]: https://github.com/Certainist/To_aru_Library/blob/master/BgOAuthMulti.php
 [BgOAuthMultiExec.php]: https://github.com/Certainist/To_aru_Library/blob/master/BgOAuthMultiExec.php
-[BombOAuth]: https://github.com/Certainist/To_aru_Library/blob/master/BombOAuth.php
 [Follower Request]: https://github.com/Certainist/To_aru_Library/blob/master/FollowerRequest.php
 [Explode Tweet]: https://github.com/Certainist/To_aru_Library/blob/master/explodeTweet.php
 [Twitter Morse]: https://github.com/Certainist/To_aru_Library/blob/master/TwitterMorse.php
