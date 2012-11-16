@@ -13,11 +13,11 @@ Twitterの利用規約に抵触するものも一部置いていますが、自己責任でご利用ください。
 ## [SimpleOAuth]<img src="http://ishisuke007.yh.land.to/push.png" style="vertical-align:bottom;" height="50">
 
 ### 概要
-爆撃や画像アップロードにも対応した高機能且つシンプルなライブラリ
+OAuth.phpに依存しない、爆撃や画像アップロードにも対応した高機能且つシンプルなライブラリ
 
 ### クラス・関数の仕様
 _$to_ = new __SimpleOAuth__ ( string _$consumer\_key_, string _$consumer\_secret_ [, string _$oauth\_token=''_, string _$oauth\_token\_secret=''_ [, string _$oauth\_verifier=''_ ]] );<br>
-_$res_->__OAuthRequest__ ( string _$url_ [, string _$method='GET'_ [, _$opt=array()_ [, bool _$waitResponse=FALSE_ ]]]);
+_$res_->__OAuthRequest__ ( string _$url_ [, string _$method='GET'_ [, _$params=array()_ [, bool _$waitResponse=FALSE_ ]]]);
 
 ### 詳細
 使いかたはtwitteroauthと似ていますが、こちらは<br>
@@ -30,7 +30,7 @@ _$res_->__OAuthRequest__ ( string _$url_ [, string _$method='GET'_ [, _$opt=arra
 更に、cURLがインストールされていない環境でも動作します。<br>
 OAuthRequestImageメソッドのパラメータのうち、<br>
 ファイルパスを表すもののキーの頭に<br>
-@」を付けてください。(例：@media[] @image)<br>
+__「@」__ を付けてください。(例：@media[] @image)<br>
 
 ### 備考
 BombOAuthで出来ることはこちらで実現可能なので、特に理由が無ければこちらをお使いください。
