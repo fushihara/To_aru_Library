@@ -3,7 +3,8 @@
 ----------------
 
 # これ何ぞ
-個人的に需要があって作った __PHP__ ライブラリ。主に __Twitter__ 向け。
+個人的に需要があって作った __PHP__ ライブラリ。主に __Twitter__ 向け。<br>
+Twitterの利用規約に抵触するものも一部置いていますが、自己責任でご利用ください。
 
 ----------------
 
@@ -20,15 +21,17 @@ _$res_->__OAuthRequest__ ( string _$url_ [, string _$method='GET'_ [, _$opt=arra
 
 ### 詳細
 使いかたはtwitteroauthと似ていますが、こちらは<br>
-- 通常のリクエスト<br>
-- 爆撃リクエスト(レスポンスを待機しない)<br>
-- 画像アップロードを伴うリクエスト<br>
+
+- 通常のリクエスト
+- 爆撃リクエスト(レスポンスを待機しない)
+- 画像アップロードを伴うリクエスト
+
 全てに対応しております。<br>
 更に、cURLがインストールされていない環境でも動作します。<br>
 OAuthRequestImageメソッドのパラメータのうち、<br>
 ファイルパスを表すもののキーの頭に<br>
 @」を付けてください。(例：@media[] @image)<br>
-<br>
+
 ### 備考
 BombOAuthで出来ることはこちらで実現可能なので、特に理由が無ければこちらをお使いください。
 
@@ -46,8 +49,6 @@ OAuth認証をバックグラウンドで行います。<br>
 成功すると、 _$tokens['access\_token']_ &middot; *$tokens['access\_token\_secret']* でアクセスできます。<br>
 失敗すると、エラー原因を表す文字列が返されます。<br>
 
-__※自己責任でお願いします__
-
 ## BgOAuthMulti<img src="http://ishisuke007.yh.land.to/push.png" style="vertical-align:bottom;" height="50">
 
 ### 概要
@@ -61,8 +62,6 @@ _$res_ = _$m_->__exec__ ();
 ### 詳細
 BgOAuthで複数ログインをマルチスレッドで行います。<br>
 [BgOAuthMulti.php]と[BgOAuthMultiExec.php]と[BgOAuth.php]を同一階層に設置してください。<br>
-
-__※自己責任でお願いします__
 
 ## [Follower Request]<img src="http://ishisuke007.yh.land.to/push.png" style="vertical-align:bottom;" height="50">
 
@@ -81,7 +80,6 @@ $f->__acceptAll__ ();<br>
 通常のTwitterのAPIエンドポイントでは実現不可能な機能なので、KeitaiWeb経由で行います。<br>
 _$id_ は、screen_nameではなく数字のみの恒久的なuser_idを指します。<br>
 最初に必ずloginメソッドを実行してください。<br>
-__※自己責任でお願いします__
 
 ## [Explode Tweet]<img src="http://ishisuke007.yh.land.to/push.png" style="vertical-align:bottom;" height="50">
 
@@ -97,20 +95,6 @@ array __explodeTweet__ ( string _$text_ )
 全てのURLはt.coに短縮されるため、20文字として扱われます。<br>
 先頭にリプライヘッダがある場合、分割された先頭以外のツイートにもそれを付加します。<br>
 DMヘッダの場合はその文字数を除外してカウントします。<br>
-
-## [Twitter Morse]<img src="http://ishisuke007.yh.land.to/push.png" style="vertical-align:bottom;" height="50">
-
-### 概要
-モールス信号のエンコード/デコード
-
-### 関数の仕様
-string __TwitterMorse::encode__ ( string _$str_ )<br>
-string __TwitterMorse::decode__ ( string _$str_ )<br>
-
-### 詳細
-モールス信号エンコード/デコードを行います。<br>
-Twitterのリプライ・RTフォーマットなどを自動判別します。<br>
-
 
 ## Array Slide<img src="http://ishisuke007.yh.land.to/push.png" style="vertical-align:bottom;" height="50">
 
@@ -136,6 +120,19 @@ Twitterのリプライ・RTフォーマットなどを自動判別します。<br>
  bool __array\_slide__ ( array _&$array_ , mixed _$key_ , int _$amount_ [, bool _$search\_target\_with\_order = FALSE_ ] )
  
  配列を参照渡しし、処理の結果を論理値で返します。
+
+## [Twitter Morse]
+
+### 概要
+モールス信号のエンコード/デコード
+
+### 関数の仕様
+string __TwitterMorse::encode__ ( string _$str_ )<br>
+string __TwitterMorse::decode__ ( string _$str_ )<br>
+
+### 詳細
+モールス信号エンコード/デコードを行います。<br>
+Twitterのリプライ・RTフォーマットなどを自動判別します。<br>
 
 ## [Linkify Text]
 
